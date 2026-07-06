@@ -1,0 +1,12 @@
+[Unit]
+Description=Publica el boot time real del host para el landing
+After=network-online.target time-sync.target
+Wants=network-online.target time-sync.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/write-boot-time.env
+ExecStart=/usr/local/bin/write-boot-time.sh
+
+[Install]
+WantedBy=multi-user.target
