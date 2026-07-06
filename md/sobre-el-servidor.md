@@ -180,7 +180,7 @@ graph TD
 
 ## Decisiones técnicas
 
-- **Debian Trixie sobre alternativas**: Prioricé estabilidad y soporte de paquetes para un servidor que se va a encontrar siempre disponible y no debe recibir actualizaciones ni reinicios de forma inesperada. 
+- **Debian Trixie sobre alternativas**: Prioricé estabilidad y soporte de paquetes para un servidor que se va a encontrar siempre disponible y no debe recibir actualizaciones ni reinicios de forma inesperada.
 - **Podman rootless en vez de Docker**: Menor superficie de ataque al no depender de un daemon corriendo como root.
 - **Tailscale como único punto de acceso remoto** Cero puertos forwardeados en el router; toda conexión pasa por WireGuard autenticado.
 - **Exposición pública mínima y temporal**: Solo esta página queda fija en Funnel; el resto de los servicios se exponen puntualmente y se apagan al terminar de usarlos.
@@ -193,7 +193,7 @@ Mi servidor personal inició por medio de una instancia de una Raspberry Pi 4b. 
 
 **Vaultwarden e Immich. Self-hosted vs. cloud (Bitwarden, Google Photos)**
 
-En ambos casos el criterio fue el mismo: privacidad y control sobre datos sensibles (contraseñas y fotos personales). El costo es mantenimiento propio, backups, actualizaciones y disponibilidad que en un servicio cloud vendría resuelto de fábrica. Para este tipo de datos, priorizo ese control incluso a costa del trabajo extra. Este fue el principio para la construcción de este homeserver. 
+En ambos casos el criterio fue el mismo: privacidad y control sobre datos sensibles (contraseñas y fotos personales). El costo es mantenimiento propio, backups, actualizaciones y disponibilidad que en un servicio cloud vendría resuelto de fábrica. Para este tipo de datos, priorizo ese control incluso a costa del trabajo extra. Este fue el principio para la construcción de este homeserver.
 
 **Cockpit detrás de Tailscale Serve: doble TLS y CSRF**
 
@@ -221,4 +221,4 @@ La configuración completa (compose files, scripts de deploy) está disponible e
 
 ---
 
-*Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver/blob/main/LICENSE)*
+_Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver-landing/blob/main/LICENSE)_

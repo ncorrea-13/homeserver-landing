@@ -28,13 +28,13 @@ Proyectos personales y académicos, la mayoría open source. Código y detalles 
 <div class="project-card" data-tags="python infra">
 
 **[pentest-handbook](https://github.com/ncorrea-13/pentest-handbook)**
-Scripts y guías prácticas de reconocimiento: automatización de dorking y recolección de OSINT en Python. Documentación de metodologías para las fases de un pentest. *(GPLv3)*
+Scripts y guías prácticas de reconocimiento: automatización de dorking y recolección de OSINT en Python. Documentación de metodologías para las fases de un pentest. _(GPLv3)_
 
 </div>
 
 <div class="project-card" data-tags="infra">
 
-**[homeserver](https://github.com/ncorrea-13/homeserver)** — Configuración y compose files de mi servidor personal. Debian Trixie + Podman rootless. El mismo servidor que hostea esta web. *(MIT License)*
+**[homeserver](https://github.com/ncorrea-13/homeserver)** — Configuración y compose files de mi servidor personal. Debian Trixie + Podman rootless. El mismo servidor que hostea esta web. _(MIT License)_
 
 </div>
 
@@ -48,14 +48,14 @@ Configuración personal de Linux para Devuan 6 (Excalibur) sobre Wayland. 100% s
 <div class="project-card" data-tags="typescript">
 
 **[mailMicroservicio](https://github.com/ncorrea-13/mailMicroservicio)**
-Microservicio de correo con arquitectura RESTful, trabajo final de Arquitectura de Microservicios (2025). TypeScript. *(GPLv3)*
+Microservicio de correo con arquitectura RESTful, trabajo final de Arquitectura de Microservicios (2025). TypeScript. _(GPLv3)_
 
 </div>
 
 <div class="project-card" data-tags="python ml">
 
 **[generadorLibros](https://github.com/ncorrea-13/generadorLibros)**
-cGAN y cVAE para síntesis de estructuras de texto, trabajo final de Redes Neuronales Profundas (2025) apoyandose en Jupyter Notebook y Google Colab. *(GPLv3)*
+cGAN y cVAE para síntesis de estructuras de texto, trabajo final de Redes Neuronales Profundas (2025) apoyandose en Jupyter Notebook y Google Colab. _(GPLv3)_
 
 </div>
 
@@ -85,4 +85,4 @@ Además de estos cinco proyectos poseo varios trabajos académicos y experimento
 
 ---
 
-*Última actualización: julio 2026*
+_Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver-landing/blob/main/LICENSE)_

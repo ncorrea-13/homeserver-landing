@@ -131,4 +131,4 @@ Este sitio es solo informativo — no hay recolección de datos.
 
 ---
 
-_Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver/blob/main/LICENSE)_
+_Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver-landing/blob/main/LICENSE)_

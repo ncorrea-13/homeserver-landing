@@ -83,4 +83,4 @@ Ver todos mis proyectos personales y académicos en la [página de proyectos](pr
 
 ---
 
-_Última actualización: julio 2026_
+_Última actualización: julio 2026 · [MIT License](https://github.com/ncorrea-13/homeserver-landing/blob/main/LICENSE)_
