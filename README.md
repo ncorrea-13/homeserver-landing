@@ -1,4 +1,4 @@
-# portfolio
+# Pequeño portfolio personal
 
 Portfolio público de mi homeserver personal: quién soy, mi experiencia y mis proyectos.
 
