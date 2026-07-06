@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 700 440" role="img">
+<title>Jerarquía del homeserver: Cockpit, landing y pods de Podman</title>
+<rect width="700" height="440" fill="#1e1e1e"/>
+
+<rect x="10" y="10" width="680" height="420" rx="24" fill="#211b30" stroke="#7f77dd" stroke-width="0.5"/>
+<text x="350" y="42" text-anchor="middle" dominant-baseline="central" fill="#c9b8ff" font-family="'Segoe UI',sans-serif" font-size="16">Homeserver</text>
+<text x="350" y="62" text-anchor="middle" dominant-baseline="central" fill="#a08fd6" font-family="'Segoe UI',sans-serif" font-size="12">Debian Trixie</text>
+
+<rect x="40" y="90" width="290" height="60" rx="10" fill="#211533" stroke="#534ab7" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="185" y="112" text-anchor="middle" dominant-baseline="central" fill="#9c8cff" font-family="'Segoe UI',sans-serif" font-size="14">Cockpit</text>
+<text x="185" y="132" text-anchor="middle" dominant-baseline="central" fill="#7d70bb" font-family="'Segoe UI',sans-serif" font-size="12">Administración del sistema</text>
+
+<rect x="370" y="90" width="290" height="60" rx="10" fill="#3a2318" stroke="#d85a30" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="515" y="112" text-anchor="middle" dominant-baseline="central" fill="#f0997b" font-family="'Segoe UI',sans-serif" font-size="14">Landing pública</text>
+<text x="515" y="132" text-anchor="middle" dominant-baseline="central" fill="#c97c5c" font-family="'Segoe UI',sans-serif" font-size="12">Expuesto vía Tailscale Funnel</text>
+
+<rect x="40" y="170" width="620" height="240" rx="18" fill="#1a2e26" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="350" y="196" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Podman rootless</text>
+<text x="350" y="214" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="12">Todos los pods de servicios</text>
+
+<rect x="65" y="234" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="155" y="253" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Core</text>
+<text x="155" y="271" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Vaultwarden, Radicale</text>
+
+<rect x="260" y="234" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="350" y="253" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Gateway</text>
+<text x="350" y="271" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Pi-hole, Unbound</text>
+
+<rect x="455" y="234" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="545" y="253" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Immich</text>
+<text x="545" y="271" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Fotos y videos</text>
+
+<rect x="65" y="296" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="155" y="315" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Entertainment</text>
+<text x="155" y="333" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Miniflux, Suwayomi, Kavita</text>
+
+<rect x="260" y="296" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="350" y="315" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Storage</text>
+<text x="350" y="333" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Syncthing, Filebrowser</text>
+
+<rect x="455" y="296" width="180" height="50" rx="10" fill="#173028" stroke="#1d9e75" stroke-width="0.5"/>
+<text x="545" y="315" text-anchor="middle" dominant-baseline="central" fill="#5dcaa5" font-family="'Segoe UI',sans-serif" font-size="14">Utils</text>
+<text x="545" y="333" text-anchor="middle" dominant-baseline="central" fill="#3d8a6e" font-family="'Segoe UI',sans-serif" font-size="11">Homepage, Uptime Kuma, Ntfy</text>
+</svg>

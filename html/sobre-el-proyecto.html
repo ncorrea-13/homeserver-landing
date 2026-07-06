@@ -1,0 +1,453 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Arquitectura del homeserver</title>
+    <style>
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      div.columns {
+        display: flex;
+        gap: min(4vw, 1.5em);
+      }
+      div.column {
+        flex: auto;
+        overflow-x: auto;
+      }
+      div.hanging-indent {
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+      /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+      ul.task-list[class] {
+        list-style: none;
+      }
+      ul.task-list li input[type="checkbox"] {
+        font-size: inherit;
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1.6em;
+        vertical-align: middle;
+      }
+      .display.math {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "default",
+        securityLevel: "loose",
+      });
+    </script>
+  </head>
+  <body>
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (stored) {
+          document.documentElement.setAttribute("data-theme", stored);
+        }
+      })();
+      function toggleTheme() {
+        var current = document.documentElement.getAttribute("data-theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        var effectiveCurrent = current || (prefersDark ? "dark" : "light");
+        var next = effectiveCurrent === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      }
+    </script>
+    <nav class="site-nav">
+      <a href="index.html">Inicio</a> <a href="sobre-mi.html">Sobre mí</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="sobre-el-proyecto.html">Arquitectura del homeserver</a>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Cambiar tema"
+        onclick="toggleTheme()"
+      >
+        ◐
+      </button>
+    </nav>
+    <h1 id="arquitectura-del-homeserver">Arquitectura del homeserver</h1>
+    <h2 id="filosofía">Filosofía</h2>
+    <p>
+      Infraestructura privada, modular y de bajo mantenimiento. Sin telemetría,
+      sin dependencia de servicios cloud comerciales, con cero puertos expuestos
+      al público salvo esta misma web. Actualmente de forma dinámica administro
+      la apertura al público por tailscale funnel a medida de mis necesitades.
+    </p>
+    <p>
+      Cada stack corre como un pod de Podman independiente, gestionado como
+      servicio de <code>systemd</code> a nivel usuario. Esto mantiene las
+      responsabilidades aisladas: reiniciar o actualizar un pod no afecta a los
+      demás.
+    </p>
+    <h2 id="arquitectura">Arquitectura</h2>
+    <p>
+      <img
+        src="diagrama-arquitectura.svg"
+        alt="Diagrama de las dos rutas de entrada al homeserver: Tailscale Funnel hacia la landing pública, y Tailscale WireGuard hacia el resto del homeserver y sus pods"
+        style="width: 100%; height: auto"
+      />
+    </p>
+    <pre class="mermaid">
+graph TD
+
+    subgraph Internet_Publico ["Internet Público"]
+        Visitor["Visitante / Reclutador"]
+    end
+
+    subgraph Tailnet_Privada ["Tailnet Privada - Tailscale"]
+        Owner["Dispositivos Autenticados<br/>(Único acceso a todo lo demás)"]
+    end
+
+    subgraph Host_Server ["Host: Debian 13 Trixie<br/>(único puerto abierto en LAN: 22/SSH)"]
+
+        TSFunnel["Tailscale Funnel<br/>(expone SOLO la landing a Internet)"]
+        TSServe["Tailscale + MagicDNS<br/>Proxy HTTPS único<br/>(misma URL, cambia puertos internamente<br/>hacia cada servicio)"]
+
+        Landing["Landing Page Portfolio<br/>HTML / CSS / JS estático<br/>servido directo por Tailscale Serve<br/>(sin servidor web propio)"]
+
+        Cockpit["Cockpit<br/>Corre en el Host, fuera de Podman<br/>Solo accesible vía Tailnet HTTPS"]
+
+        Cron["Cron Jobs<br/>Backups programados"]
+
+        subgraph Podman_Engine ["Podman (rootless) - Pods"]
+
+            PodmanRoot["Motor Podman"]
+
+            subgraph Pod_Core ["Pod: Core"]
+                Vaultwarden["Vaultwarden"]
+                Radicale["Radicale"]
+            end
+
+            subgraph Pod_Network ["Pod: Network"]
+                Pihole["Pi-hole<br/>(filtrado DNS)"]
+                Unbound["Unbound<br/>DoT → Mullvad"]
+            end
+
+            subgraph Pod_Storage ["Pod: Storage"]
+                Syncthing["Syncthing"]
+                Filebrowser["Filebrowser"]
+            end
+
+            subgraph Pod_Utils ["Pod: Utils"]
+                Homepage["Homepage"]
+                Ntfy["Ntfy"]
+                Kuma["Uptime Kuma"]
+            end
+
+            subgraph Pod_Immich ["Pod: Immich"]
+                ImmichSrv["Immich Server"]
+                ImmichML["Immich Machine Learning"]
+            end
+
+            subgraph Pod_Entertainment ["Pod: Entertainment"]
+                Miniflux["Miniflux"]
+                Suwayomi["Suwayomi"]
+                Kavita["Kavita"]
+                Flaresolverr["Flaresolverr"]
+            end
+
+        end
+    end
+
+    subgraph Almacenamiento ["Hardware: Almacenamiento"]
+        SSD_OS[("SSD 120GB<br/>Sistema Operativo")]
+        SSD_Data[("SSD 480GB<br/>Datos: volúmenes Podman<br/>(todos los contenedores)")]
+        HDD_Daily[("HDD 2.5 pulg 480GB<br/>Backup Diario")]
+        HDD_Weekly[("HDD 2.5 pulg 480GB<br/>Backup Semanal")]
+    end
+
+    subgraph Salida_DNS ["Salida DNS Externa"]
+        Mullvad[("Mullvad DNS<br/>vía DoT")]
+    end
+
+    %% Conexiones de acceso
+    Visitor --> TSFunnel
+    TSFunnel --> Landing
+
+    Owner --> TSServe
+    TSServe --> Cockpit
+    TSServe --> PodmanRoot
+    PodmanRoot --> Pod_Core
+    PodmanRoot --> Pod_Network
+    PodmanRoot --> Pod_Storage
+    PodmanRoot --> Pod_Utils
+    PodmanRoot --> Pod_Immich
+    PodmanRoot --> Pod_Entertainment
+
+    %% DNS
+    Pihole --> Unbound
+    Unbound -.->|DoT| Mullvad
+
+    %% Notificaciones
+    Kuma -.->|notifica| Ntfy
+
+    %% Storage
+    Landing -.-> SSD_OS
+    Cockpit -.-> SSD_OS
+    PodmanRoot ==> SSD_Data
+    Cron --> HDD_Daily
+    Cron --> HDD_Weekly
+    SSD_Data -.->|backup| HDD_Daily
+    SSD_Data -.->|backup| HDD_Weekly
+
+    classDef public fill:#f9d5e5,stroke:#333,stroke-width:2px;
+    classDef private fill:#d5e8d4,stroke:#333,stroke-width:2px;
+    classDef host fill:#fff2cc,stroke:#333,stroke-width:2px;
+    classDef storage fill:#e1d5e7,stroke:#333,stroke-width:2px;
+    classDef dns fill:#cfe2f3,stroke:#333,stroke-width:2px;
+    classDef standalone fill:#ffe6cc,stroke:#333,stroke-width:2px;
+
+    class Visitor public;
+    class Owner private;
+    class Host_Server host;
+    class Podman_Engine host;
+    class Landing,Cockpit,TSFunnel,TSServe standalone;
+    class PodmanRoot host;
+    class SSD_OS,SSD_Data,HDD_Daily,HDD_Weekly storage;
+    class Mullvad dns;
+</pre>
+    <h3 id="notas-de-arquitectura">Notas de arquitectura</h3>
+    <ul>
+      <li>
+        <strong>Acceso único:</strong> el servidor no es accesible por red
+        local. Todo el tráfico pasa exclusivamente por Tailscale; el único
+        puerto permitido de entrada es 22/SSH por red LAN. Los puertos de cada
+        servicio se redirigen internamente para el proxy de Tailscale.
+      </li>
+      <li>
+        <strong>Tailscale:</strong> además de dar acceso privado, actúa como
+        proxy único hacia todos los servicios (misma URL vía MagicDNS, cambiando
+        de puerto según el servicio) y provee SSL en todos los casos.
+      </li>
+      <li>
+        <strong>Portfolio:</strong> es la única excepción siempre disponible y
+        expuesta a internet, mediante Tailscale Funnel sobre una ruta
+        específica. Es HTML/CSS/JS estático, sin backend ni contenedor propio.
+      </li>
+      <li>
+        <strong>Cockpit:</strong> corre directamente en el host (no en Podman),
+        accesible únicamente vía Tailscale.
+      </li>
+      <li>
+        <strong>Webhook:</strong> API instanciada para la habilitación dinámica
+        de Tailscale Funnel. Permite instanciar en Homepage botones con scripts
+        en bash para habilitar la salida externa de diversos servicios de forma
+        dinámica.
+      </li>
+      <li>
+        <strong>Podman:</strong> motor rootless que orquesta todos los pods de
+        servicios. No incluye la landing ni Cockpit.
+      </li>
+      <li>
+        <strong>Bases de datos:</strong> Redis y Postgres (Immich) y la base de
+        Miniflux se omiten intencionalmente del diagrama por prolijidad.
+      </li>
+      <li>
+        <strong>Discos:</strong> el SSD de 120GB es exclusivo del sistema
+        operativo. El SSD de 480GB concentra todos los volúmenes de los
+        contenedores. Los dos HDD de 2.5” (480GB cada uno) son destino de
+        backups diario y semanal respectivamente.
+      </li>
+      <li>
+        <strong>DNS:</strong> Pi-hole filtra consultas y las reenvía a Unbound,
+        que sale a los servidores de Mullvad exclusivamente vía DoT.
+      </li>
+      <li>
+        <strong>Uso real:</strong> Radicale guarda calendarios y contactos.
+        Syncthing sincroniza notas de Obsidian, respaldo de WhatsApp, códigos
+        2FA encriptados y biblioteca de Calibre. Homepage se usa solo como
+        launcher de apps (sin integración de API keys con Podman). Miniflux
+        centraliza RSS de mis intereses personales.
+      </li>
+    </ul>
+    <h2 id="stack-técnico">Stack técnico</h2>
+    <ul>
+      <li>
+        <strong>Hardware:</strong> Lenovo ThinkCentre M700 (i3-6100T, 8GB RAM)
+      </li>
+      <li><strong>Sistema operativo:</strong> Debian Trixie (amd64)</li>
+      <li>
+        <strong>Contenedores:</strong> Podman rootless con
+        <code>podman-compose</code>, orquestado vía <code>systemd</code> a nivel
+        usuario
+      </li>
+      <li>
+        <strong>Red:</strong> Tailscale (WireGuard) exclusivo de acceso remoto,
+        sin puertos forwardeados en el router
+      </li>
+      <li>
+        <strong>Administración:</strong> Cockpit para monitoreo de sistema y
+        contenedores
+      </li>
+    </ul>
+    <h2 id="servicios">Servicios</h2>
+    <p>
+      <strong>Core</strong> — Vaultwarden (contraseñas), Radicale (calendarios y
+      contactos)
+    </p>
+    <p>
+      <strong>Gateway</strong> — Pi-hole (bloqueo de publicidad), Unbound (DNS
+      recursivo con DoT)
+    </p>
+    <p>
+      <strong>Immich</strong> — Backup y galería de fotos y videos con búsqueda
+      por ML
+    </p>
+    <p>
+      <strong>Entertainment</strong> — Miniflux (RSS), Suwayomi (lector de
+      comics), Kavita (biblioteca digital)
+    </p>
+    <p>
+      <strong>Storage</strong> — Syncthing (sincronización), Filebrowser
+      (gestión de archivos)
+    </p>
+    <p>
+      <strong>Utils</strong> — Homepage (dashboard), Uptime Kuma (monitoreo),
+      Ntfy (notificaciones push)
+    </p>
+    <h2 id="decisiones-técnicas">Decisiones técnicas</h2>
+    <ul>
+      <li>
+        <strong>Debian Trixie sobre alternativas</strong>: Prioricé estabilidad
+        y soporte de paquetes para un servidor que se va a encontrar siempre
+        disponible y no debe recibir actualizaciones ni reinicios de forma
+        inesperada.
+      </li>
+      <li>
+        <strong>Podman rootless en vez de Docker</strong>: Menor superficie de
+        ataque al no depender de un daemon corriendo como root.
+      </li>
+      <li>
+        <strong>Tailscale como único punto de acceso remoto</strong> Cero
+        puertos forwardeados en el router; toda conexión pasa por WireGuard
+        autenticado.
+      </li>
+      <li>
+        <strong>Exposición pública mínima y temporal</strong>: Solo esta página
+        queda fija en Funnel; el resto de los servicios se exponen puntualmente
+        y se apagan al terminar de usarlos.
+      </li>
+    </ul>
+    <h2 id="trade-offs-de-arquitectura">Trade-offs de arquitectura</h2>
+    <p><strong>Origenes del proyecto</strong></p>
+    <p>
+      Mi servidor personal inició por medio de una instancia de una Raspberry Pi
+      4b. Ahí comenzó este proyecto y con el cual he ido aprendiendo en mi día a
+      día. Actualmente esa Raspberry Pi se encuentra vinculada al nodo principal
+      permitiendo redundancia para los servicios primordiales como Vaultwarden,
+      Pihole o Unbound. Así mantengo una alta disponibilidad ante cualquier
+      inconveniente que pueda llegar a ocurrir
+    </p>
+    <p>
+      <strong
+        >Vaultwarden e Immich. Self-hosted vs. cloud (Bitwarden, Google
+        Photos)</strong
+      >
+    </p>
+    <p>
+      En ambos casos el criterio fue el mismo: privacidad y control sobre datos
+      sensibles (contraseñas y fotos personales). El costo es mantenimiento
+      propio, backups, actualizaciones y disponibilidad que en un servicio cloud
+      vendría resuelto de fábrica. Para este tipo de datos, priorizo ese control
+      incluso a costa del trabajo extra. Este fue el principio para la
+      construcción de este homeserver.
+    </p>
+    <p><strong>Cockpit detrás de Tailscale Serve: doble TLS y CSRF</strong></p>
+    <p>
+      Cockpit ya sirve su propia interfaz por HTTPS con certificado autofirmado.
+      Al exponerlo detrás de <code>tailscale serve</code>, que también termina
+      TLS, el resultado era una segunda capa de cifrado envolviendo a la primera
+      — el navegador recibía una respuesta cifrada dos veces y fallaba al
+      renderizar la interfaz.
+    </p>
+    <p>
+      Sumado a eso, Cockpit valida el header <code>Origin</code> de cada request
+      como protección CSRF. Al llegar las requests desde el dominio de Tailscale
+      (<code>*.ts.net</code>) en vez del hostname local que Cockpit esperaba,
+      las rechazaba silenciosamente.
+    </p>
+    <p>
+      La solución fue configurar Cockpit para escuchar en HTTP plano localmente
+      (dejando que Tailscale sea la única capa de TLS real) y agregar el dominio
+      de Tailscale a los orígenes permitidos en la configuración de Cockpit,
+      para que dejara de tratar esas requests como intentos de CSRF.
+    </p>
+    <h2 id="referencias">Referencias</h2>
+    <p>
+      Documentación y fuentes técnicas usadas para diseñar esta infraestructura:
+    </p>
+    <ul>
+      <li>
+        <a href="https://tailscale.com/kb/1223/funnel">Tailscale Funnel</a> y
+        <a href="https://tailscale.com/kb/1242/tailscale-serve"
+          >Tailscale Serve</a
+        >: exposición pública controlada sobre WireGuard.
+      </li>
+      <li>
+        <a
+          href="https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-containers"
+          >Podman rootless</a
+        >: contenedores sin daemon root, base de la superficie de ataque
+        reducida.
+      </li>
+      <li>
+        <a
+          href="https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html"
+          >systemd Rootless containers with Podman</a
+        >: unidades de usuario para cada pod.
+      </li>
+      <li>
+        <a href="https://cockpit-project.org/">Cockpit Project</a>:
+        administración web del sistema y contenedores.
+      </li>
+      <li>
+        <a href="https://pandoc.org/">Pandoc</a>: generador de esta misma
+        landing a partir de Markdown.
+      </li>
+    </ul>
+    <h2 id="código-abierto">Código abierto</h2>
+    <p>
+      La configuración completa (compose files, scripts de deploy) está
+      disponible en el repositorio:
+    </p>
+    <p>
+      <a href="https://github.com/ncorrea-13/homeserver"
+        >github.com/ncorrea-13/homeserver</a
+      >
+    </p>
+    <hr />
+    <p>
+      <em
+        >Última actualización: julio 2026 ·
+        <a href="https://github.com/ncorrea-13/homeserver/blob/main/LICENSE"
+          >MIT License</a
+        ></em
+      >
+    </p>
+  </body>
+</html>

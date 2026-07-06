@@ -1,0 +1,187 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Proyectos</title>
+    <style>
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      div.columns {
+        display: flex;
+        gap: min(4vw, 1.5em);
+      }
+      div.column {
+        flex: auto;
+        overflow-x: auto;
+      }
+      div.hanging-indent {
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
+      /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+      ul.task-list[class] {
+        list-style: none;
+      }
+      ul.task-list li input[type="checkbox"] {
+        font-size: inherit;
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1.6em;
+        vertical-align: middle;
+      }
+      .display.math {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>"
+    />
+  </head>
+  <body>
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (stored) {
+          document.documentElement.setAttribute("data-theme", stored);
+        }
+      })();
+      function toggleTheme() {
+        var current = document.documentElement.getAttribute("data-theme");
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        var effectiveCurrent = current || (prefersDark ? "dark" : "light");
+        var next = effectiveCurrent === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      }
+    </script>
+    <nav class="site-nav">
+      <a href="index.html">Inicio</a> <a href="sobre-mi.html">Sobre mí</a>
+      <a href="proyectos.html">Proyectos</a>
+      <a href="sobre-el-proyecto.html">Arquitectura del homeserver</a>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Cambiar tema"
+        onclick="toggleTheme()"
+      >
+        ◐
+      </button>
+    </nav>
+    <h1 id="proyectos">Proyectos</h1>
+    <p>
+      Proyectos personales y académicos, la mayoría open source. Código y
+      detalles en cada repositorio.
+    </p>
+    <h2 id="destacados">Destacados</h2>
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="python">Python</button>
+      <button class="filter-btn" data-filter="typescript">TypeScript</button>
+      <button class="filter-btn" data-filter="infra">Infraestructura</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+    </div>
+    <div class="project-card" data-tags="python infra">
+      <p>
+        <strong
+          ><a href="https://github.com/ncorrea-13/pentest-handbook"
+            >pentest-handbook</a
+          ></strong
+        >
+        Scripts y guías prácticas de reconocimiento: automatización de dorking y
+        recolección de OSINT en Python. Documentación de metodologías para las
+        fases de un pentest. <em>(GPLv3)</em>
+      </p>
+    </div>
+    <div class="project-card" data-tags="infra">
+      <p>
+        <strong
+          ><a href="https://github.com/ncorrea-13/homeserver"
+            >homeserver</a
+          ></strong
+        >
+        — Configuración y compose files de mi servidor personal. Debian Trixie +
+        Podman rootless. El mismo servidor que hostea esta web.
+        <em>(MIT License)</em>
+      </p>
+    </div>
+    <div class="project-card" data-tags="infra">
+      <p>
+        <strong
+          ><a href="https://github.com/ncorrea-13/dotfiles">dotfiles</a></strong
+        >
+        Configuración personal de Linux para Devuan 6 (Excalibur) sobre Wayland.
+        100% systemd-free. Sin dependencia de <code>systemctl</code> ni
+        <code>loginctl</code> para gestión de sesión.
+      </p>
+    </div>
+    <div class="project-card" data-tags="typescript">
+      <p>
+        <strong
+          ><a href="https://github.com/ncorrea-13/mailMicroservicio"
+            >mailMicroservicio</a
+          ></strong
+        >
+        Microservicio de correo con arquitectura RESTful, trabajo final de
+        Arquitectura de Microservicios (2025). TypeScript. <em>(GPLv3)</em>
+      </p>
+    </div>
+    <div class="project-card" data-tags="python ml">
+      <p>
+        <strong
+          ><a href="https://github.com/ncorrea-13/generadorLibros"
+            >generadorLibros</a
+          ></strong
+        >
+        cGAN y cVAE para síntesis de estructuras de texto, trabajo final de
+        Redes Neuronales Profundas (2025) apoyandose en Jupyter Notebook y
+        Google Colab. <em>(GPLv3)</em>
+      </p>
+    </div>
+    <script>
+      (function () {
+        var buttons = document.querySelectorAll(".filter-btn");
+        var cards = document.querySelectorAll(".project-card");
+        buttons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            buttons.forEach(function (b) {
+              b.classList.remove("active");
+            });
+            btn.classList.add("active");
+            var filter = btn.getAttribute("data-filter");
+            cards.forEach(function (card) {
+              var tags = card.getAttribute("data-tags");
+              card.classList.toggle(
+                "hidden",
+                filter !== "all" && tags.indexOf(filter) === -1,
+              );
+            });
+          });
+        });
+      })();
+    </script>
+    <h2 id="ver-todo">Ver todo</h2>
+    <p>
+      Además de estos cinco proyectos poseo varios trabajos académicos y
+      experimentos menores. El listado completo, siempre actualizado, está en mi
+      cuenta de Github:
+    </p>
+    <p><a href="https://github.com/ncorrea-13">github.com/ncorrea-13</a></p>
+    <hr />
+    <p><em>Última actualización: julio 2026</em></p>
+  </body>
+</html>
