@@ -1,6 +1,6 @@
-# landing
+# portfolio
 
-Landing page pública de mi homeserver personal. Constituye una web que además funciona como portfolio: quién soy, mi experiencia y mis proyectos.
+Portfolio público de mi homeserver personal: quién soy, mi experiencia y mis proyectos.
 
 Corre 24/7 detrás de Tailscale Funnel como única superficie de ese servidor expuesta directamente a internet; todo lo demás (Vaultwarden, Immich, Cockpit, etc.) queda en la tailnet privada. Este repo es solo la réplica del sitio, separada del repo completo del homeserver, que tiene la configuración de red y el resto de los servicios.
 
