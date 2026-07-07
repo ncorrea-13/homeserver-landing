@@ -27,19 +27,19 @@ Cada stack corre como un pod de Podman independiente, gestionado como servicio d
 graph TD
 
     subgraph Internet_Publico ["Internet Público"]
-        Visitor["Visitante / Reclutador"]
+        Visitor["Visitante"]
     end
 
     subgraph Tailnet_Privada ["Tailnet Privada - Tailscale"]
-        Owner["Dispositivos Autenticados<br/>(Único acceso a todo lo demás)"]
+        Owner["Dispositivos Autenticados"]
     end
 
-    subgraph Host_Server ["Host: Debian 13 Trixie<br/>(único puerto abierto en LAN: 22/SSH)"]
+    subgraph Host_Server ["Host: Debian 13 Trixie"]
 
-        TSFunnel["Tailscale Funnel<br/>(expone SOLO la landing a Internet)"]
-        TSServe["Tailscale + MagicDNS<br/>Proxy HTTPS único<br/>(misma URL, cambia puertos internamente<br/>hacia cada servicio)"]
+        TSFunnel["Tailscale Funnel<br/>(expone SOLO el portfolio a Internet)"]
+        TSServe["Tailscale + MagicDNS<br/>Proxy HTTPS único"]
 
-        Landing["Landing Page Portfolio<br/>HTML / CSS / JS estático<br/>servido directo por Tailscale Serve<br/>(sin servidor web propio)"]
+        Landing["Landing Page Portfolio<br/>HTML / CSS / JS estático<br/>servido directo por Tailscale Serve"]
 
         Cockpit["Cockpit<br/>Corre en el Host, fuera de Podman<br/>Solo accesible vía Tailnet HTTPS"]
 
@@ -87,7 +87,7 @@ graph TD
 
     subgraph Almacenamiento ["Hardware: Almacenamiento"]
         SSD_OS[("SSD 120GB<br/>Sistema Operativo")]
-        SSD_Data[("SSD 480GB<br/>Datos: volúmenes Podman<br/>(todos los contenedores)")]
+        SSD_Data[("SSD 480GB<br/>Datos: volúmenes Podman<br/>Toda la información y contenedores")]
         HDD_Daily[("HDD 2.5 pulg 480GB<br/>Backup Diario")]
         HDD_Weekly[("HDD 2.5 pulg 480GB<br/>Backup Semanal")]
     end
