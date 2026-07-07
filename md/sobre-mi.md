@@ -51,13 +51,11 @@ HackTheBox, TryHackMe y PortSwigger Web Security Academy para ejercitar explotac
 
 ## Filosofía de trabajo
 
-Me interesa tanto construir sistemas como entender cómo se rompen. Esa doble mirada influye directamente en cómo diseño: priorizo minimizar superficie de ataque y aislar por servicio antes que agregar funcionalidad por agregar.
+Me interesa tanto construir sistemas como buscar fallas y vulnerabilidades. Esa doble mirada influye directamente en cómo diseño: priorizo minimizar superficie de ataque y aislar por servicio antes que agregar funcionalidad por agregar. En el fondo el sysadmin es la parte que más disfruto — armar la arquitectura, sostenerla, entender por qué algo no levanta, más allá de que también me sirva como excusa para aprender seguridad. Ese mismo gusto es el que me lleva a preferir software libre. Es la herramienta que me da control real sobre mis propios datos.
 
 ## Intereses
 
-Arquitectura de sistemas, sistemas operativos y herramientas con formato CLI/TUI.
-Self-hosting, privacidad digital,
-Seguridad ofensiva e integrante del Club de Hacking Ético (UTN).
+Arquitectura de sistemas y sistemas operativos, sobre todo por CLI/TUI. Self-hosting y privacidad digital, como el motivo por el que este homeserver sigue creciendo. Seguridad ofensiva, e integrante del Club de Hacking Ético (UTN).
 
 ## CV
 

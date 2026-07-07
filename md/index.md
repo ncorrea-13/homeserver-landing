@@ -15,11 +15,11 @@ lang: es
 <img class="hero-photo" src="foto.jpg" alt="Nicolás Correa" />
 <div>
 <h1 class="hero-name">Nicolás Correa</h1>
-<p class="hero-tagline">Developer full-stack · Sysadmin & homelab · Red Team Trainee</p>
+<p class="hero-tagline">Full-stack developer · Sysadmin & homelab · Red Team Trainee</p>
 </div>
 </div>
 
-Estudiante avanzado de Ingeniería en Sistemas de Información y desarrollador full-stack en AYSAM. Me interesa tanto construir sistemas como entender cómo se rompen. Combino desarrollo de software con formación en ciberseguridad ofensiva.
+Estudiante avanzado de Ingeniería en Sistemas de Información y desarrollador full-stack en AYSAM. Me gusta tanto programar como administrar la infraestructura donde corre lo que desarrollé, construir sistemas, mantenerlos, y entender cómo se rompen. Combino desarrollo de software con formación en ciberseguridad ofensiva.
 
 <div class="tag-group">
   <p class="tag-group-label">Backend</p>
