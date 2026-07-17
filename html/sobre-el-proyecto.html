@@ -177,8 +177,8 @@ graph TD
     subgraph Almacenamiento ["Hardware: Almacenamiento"]
         SSD_OS[("SSD 120GB<br/>Sistema Operativo")]
         SSD_Data[("SSD 480GB<br/>Datos: volúmenes Podman<br/>Toda la información y contenedores")]
-        HDD_Daily[("HDD 2.5 pulg 480GB<br/>Backup Diario")]
-        HDD_Weekly[("HDD 2.5 pulg 480GB<br/>Backup Semanal")]
+        HDD_Daily[("HDD 480GB<br/>Backup Diario")]
+        HDD_Weekly[("HDD 480GB<br/>Backup Semanal")]
     end
 
     subgraph Salida_DNS ["Salida DNS Externa"]
@@ -250,8 +250,8 @@ graph TD
         específica. Es HTML/CSS/JS estático, sin backend ni contenedor propio.
       </li>
       <li>
-        <strong>Cockpit:</strong> corre directamente en el host (no en Podman),
-        accesible únicamente vía Tailscale.
+        <strong>Cockpit:</strong> corre directamente en el host, accesible
+        únicamente vía Tailscale.
       </li>
       <li>
         <strong>Webhook:</strong> API instanciada para la habilitación dinámica
@@ -264,14 +264,14 @@ graph TD
         servicios. No incluye la landing ni Cockpit.
       </li>
       <li>
-        <strong>Bases de datos:</strong> Redis y Postgres (Immich) y la base de
-        Miniflux se omiten intencionalmente del diagrama por prolijidad.
+        <strong>Bases de datos:</strong> Immich y Miniflux poseen sus
+        contenedores de base de datos. Se omiten en el diagrama.
       </li>
       <li>
         <strong>Discos:</strong> el SSD de 120GB es exclusivo del sistema
         operativo. El SSD de 480GB concentra todos los volúmenes de los
-        contenedores. Los dos HDD de 2.5” (480GB cada uno) son destino de
-        backups diario y semanal respectivamente.
+        contenedores. Los dos HDD de son destino de backups diario y semanal
+        respectivamente.
       </li>
       <li>
         <strong>DNS:</strong> Pi-hole filtra consultas y las reenvía a Unbound,
@@ -290,15 +290,15 @@ graph TD
       <li>
         <strong>Hardware:</strong> Lenovo ThinkCentre M700 (i3-6100T, 8GB RAM)
       </li>
-      <li><strong>Sistema operativo:</strong> Debian Trixie (amd64)</li>
+      <li><strong>Sistema operativo:</strong> Debian 13 Trixie</li>
       <li>
         <strong>Contenedores:</strong> Podman rootless con
         <code>podman-compose</code>, orquestado vía <code>systemd</code> a nivel
         usuario
       </li>
       <li>
-        <strong>Red:</strong> Tailscale (WireGuard) exclusivo de acceso remoto,
-        sin puertos forwardeados en el router
+        <strong>Red:</strong> Tailscale (WireGuard) sin puertos abiertos en el
+        router
       </li>
       <li>
         <strong>Administración:</strong> Cockpit para monitoreo de sistema y
@@ -307,95 +307,89 @@ graph TD
     </ul>
     <h2 id="servicios">Servicios</h2>
     <p>
-      <strong>Core</strong> — Vaultwarden (contraseñas), Radicale (calendarios y
+      <strong>Core</strong> - Vaultwarden (contraseñas), Radicale (calendarios y
       contactos)
     </p>
     <p>
-      <strong>Gateway</strong> — Pi-hole (bloqueo de publicidad), Unbound (DNS
+      <strong>Gateway</strong> - Pi-hole (bloqueo de publicidad), Unbound (DNS
       recursivo con DoT)
     </p>
     <p>
-      <strong>Immich</strong> — Backup y galería de fotos y videos con búsqueda
+      <strong>Immich</strong> - Backup y galería de fotos y videos con búsqueda
       por ML
     </p>
     <p>
-      <strong>Entertainment</strong> — Miniflux (RSS), Suwayomi (lector de
+      <strong>Entertainment</strong> - Miniflux (RSS), Suwayomi (lector de
       comics), Kavita (biblioteca digital)
     </p>
     <p>
-      <strong>Storage</strong> — Syncthing (sincronización), Filebrowser
+      <strong>Storage</strong> - Syncthing (sincronización), Filebrowser
       (gestión de archivos)
     </p>
     <p>
-      <strong>Utils</strong> — Homepage (dashboard), Uptime Kuma (monitoreo),
+      <strong>Utils</strong> - Homepage (dashboard), Uptime Kuma (monitoreo),
       Ntfy (notificaciones push)
     </p>
     <h2 id="decisiones-técnicas">Decisiones técnicas</h2>
     <ul>
       <li>
-        <strong>Debian Trixie sobre alternativas</strong>: Prioricé estabilidad
-        y soporte de paquetes para un servidor que se va a encontrar siempre
-        disponible y no debe recibir actualizaciones ni reinicios de forma
-        inesperada.
+        <strong>Debian Trixie</strong>: Prioricé estabilidad y soporte de
+        paquetes para un servidor que se va a encontrar siempre disponible y no
+        debe recibir actualizaciones ni reinicios de forma inesperada.
       </li>
       <li>
-        <strong>Podman rootless en vez de Docker</strong>: Menor superficie de
-        ataque al no depender de un daemon corriendo como root.
+        <strong>Podman</strong>: Menor superficie de ataque al no depender de un
+        daemon corriendo como root.
       </li>
       <li>
-        <strong>Tailscale como único punto de acceso remoto</strong> Cero
-        puertos forwardeados en el router; toda conexión pasa por WireGuard
-        autenticado.
+        <strong>Tailscale</strong> Cero puertos abiertos en el router, evitando
+        fallas de seguridad y accesos no deseados.
       </li>
       <li>
-        <strong>Exposición pública mínima y temporal</strong>: Solo esta página
-        queda fija en Funnel; el resto de los servicios se exponen puntualmente
-        y se apagan al terminar de usarlos.
+        <strong>Exposición pública temporal</strong>: Solo esta página queda
+        fija en Funnel; el resto de los servicios se exponen puntualmente y se
+        apagan al terminar de usarlos.
       </li>
     </ul>
     <h2 id="trade-offs-de-arquitectura">Trade-offs de arquitectura</h2>
     <p><strong>Origenes del proyecto</strong></p>
     <p>
       Mi servidor personal inició por medio de una instancia de una Raspberry Pi
-      4b. Ahí comenzó este proyecto y con el cual he ido aprendiendo en mi día a
-      día. Actualmente esa Raspberry Pi se encuentra vinculada al nodo principal
-      permitiendo redundancia para los servicios primordiales como Vaultwarden,
-      Pihole o Unbound. Así mantengo una alta disponibilidad ante cualquier
-      inconveniente que pueda llegar a ocurrir
+      4b. Esto despertó mi entusiasmo en la administración de servidores y me ha
+      permitido ir aprendiendo en mi día a día. Actualmente esa Raspberry Pi se
+      encuentra vinculada al nodo principal permitiendo redundancia para los
+      servicios primordiales como Vaultwarden, Pihole o Unbound. Así mantengo
+      una alta disponibilidad ante cualquier inconveniente que pueda llegar a
+      ocurrir
     </p>
+    <p><strong>Self-hosted vs. cloud</strong></p>
     <p>
-      <strong
-        >Vaultwarden e Immich. Self-hosted vs. cloud (Bitwarden, Google
-        Photos)</strong
-      >
+      Siempre criterio de elección fue el mismo: privacidad y control sobre
+      datos sensibles. El costo es mantenimiento propio, backups,
+      actualizaciones y disponibilidad que en un servicio cloud vendría resuelto
+      de fábrica. Para este tipo de datos, priorizo ese control incluso a costa
+      del trabajo extra. Este fue el principio para la construcción de este
+      homeserver.
     </p>
-    <p>
-      En ambos casos el criterio fue el mismo: privacidad y control sobre datos
-      sensibles (contraseñas y fotos personales). El costo es mantenimiento
-      propio, backups, actualizaciones y disponibilidad que en un servicio cloud
-      vendría resuelto de fábrica. Para este tipo de datos, priorizo ese control
-      incluso a costa del trabajo extra. Este fue el principio para la
-      construcción de este homeserver.
-    </p>
-    <p><strong>Cockpit detrás de Tailscale Serve: doble TLS y CSRF</strong></p>
+    <p><strong>Cockpit detrás de Tailscale Serve</strong></p>
     <p>
       Cockpit ya sirve su propia interfaz por HTTPS con certificado autofirmado.
       Al exponerlo detrás de <code>tailscale serve</code>, que también termina
-      TLS, el resultado era una segunda capa de cifrado envolviendo a la primera
-      — el navegador recibía una respuesta cifrada dos veces y fallaba al
+      TLS, el resultado era una segunda capa de cifrado envolviendo a la
+      primera. El navegador recibía una respuesta cifrada dos veces y fallaba al
       renderizar la interfaz.
     </p>
     <p>
       Sumado a eso, Cockpit valida el header <code>Origin</code> de cada request
       como protección CSRF. Al llegar las requests desde el dominio de Tailscale
-      (<code>*.ts.net</code>) en vez del hostname local que Cockpit esperaba,
-      las rechazaba silenciosamente.
+      en vez del hostname local que Cockpit esperaba, las rechazaba
+      silenciosamente.
     </p>
     <p>
       La solución fue configurar Cockpit para escuchar en HTTP plano localmente
-      (dejando que Tailscale sea la única capa de TLS real) y agregar el dominio
-      de Tailscale a los orígenes permitidos en la configuración de Cockpit,
-      para que dejara de tratar esas requests como intentos de CSRF.
+      y agregar el dominio de Tailscale a los orígenes permitidos en la
+      configuración de Cockpit, para que dejara de tratar esas requests como
+      intentos de CSRF.
     </p>
     <h2 id="referencias">Referencias</h2>
     <p>
@@ -431,10 +425,7 @@ graph TD
       </li>
     </ul>
     <h2 id="código-abierto">Código abierto</h2>
-    <p>
-      La configuración completa (compose files, scripts de deploy) está
-      disponible en el repositorio:
-    </p>
+    <p>La configuración completa está disponible en el repositorio:</p>
     <p>
       <a href="https://github.com/ncorrea-13/homeserver"
         >github.com/ncorrea-13/homeserver</a

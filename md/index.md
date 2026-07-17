@@ -127,7 +127,7 @@ El detalle técnico completo se puede encontrar en la sección de [arquitectura 
   </a>
 </div>
 
-Este sitio es solo informativo — no hay recolección de datos.
+Este sitio es solo informativo - no hay recolección de datos.
 
 ---
 

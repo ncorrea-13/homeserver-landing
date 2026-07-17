@@ -15,7 +15,7 @@ lang: es
 
 <div class="hero">
 <div>
-<p>Estudiante avanzado de Ingeniería en Sistemas de Información (UTN Regional Mendoza). Actualmente tengo 36 materias aprobadas de las 41 de la carrera. Soy desarrollador full-stack en AYSAM. Me apasiona el desarrollo de software, y mi experiencia en Linux avanzado despertó interés en la infraestructura, la ciberseguridad y explotación de vulnerabilidades.</p>
+<p>Estudiante avanzado de Ingeniería en Sistemas de Información en la Universidad Tecnológica Nacional, Facultad Regional Mendoza. Actualmente tengo 37 materias aprobadas de las 41 de la carrera. Soy desarrollador full-stack en AYSAM. Me apasiona el desarrollo de software, y mi experiencia en Linux avanzado despertó interés en la infraestructura, la ciberseguridad y explotación de vulnerabilidades.</p>
 <p>Este homeserver es mi laboratorio personal: infraestructura self-hosted, contenedores, redes y privacidad aplicada a un uso diario real.  Además me encuentro actualmente en formación como Red Team.</p>
 </div>
 <img class="hero-photo large" src="foto.jpg" alt="Nicolás Correa" />
@@ -51,7 +51,7 @@ HackTheBox, TryHackMe y PortSwigger Web Security Academy para ejercitar explotac
 
 ## Filosofía de trabajo
 
-Me interesa tanto construir sistemas como buscar fallas y vulnerabilidades. Esa doble mirada influye directamente en cómo diseño: priorizo minimizar superficie de ataque y aislar por servicio antes que agregar funcionalidad por agregar. En el fondo el sysadmin es la parte que más disfruto — armar la arquitectura, sostenerla, entender por qué algo no levanta, más allá de que también me sirva como excusa para aprender seguridad. Ese mismo gusto es el que me lleva a preferir software libre. Es la herramienta que me da control real sobre mis propios datos.
+Me interesa tanto construir sistemas como buscar fallas y vulnerabilidades. Esa doble mirada influye directamente en cómo diseño: priorizo minimizar superficie de ataque y aislar por servicio antes que agregar funcionalidad por agregar. En el fondo el sysadmin es la parte que más disfruto: armar la arquitectura, sostenerla, entender por qué algo no levanta, más allá de que también me sirva como excusa para aprender seguridad. Ese mismo gusto es el que me lleva a preferir software libre. Es la herramienta que me da control real sobre mis propios datos.
 
 ## Intereses
 

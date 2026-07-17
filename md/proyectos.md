@@ -34,7 +34,7 @@ Scripts y guías prácticas de reconocimiento: automatización de dorking y reco
 
 <div class="project-card" data-tags="infra">
 
-**[homeserver](https://github.com/ncorrea-13/homeserver)** — Configuración y compose files de mi servidor personal. Debian Trixie + Podman rootless. El mismo servidor que hostea esta web. _(MIT License)_
+**[homeserver](https://github.com/ncorrea-13/homeserver)** - Configuración y compose files de mi servidor personal. Debian Trixie + Podman rootless. El mismo servidor que hostea esta web. _(MIT License)_
 
 </div>
 
