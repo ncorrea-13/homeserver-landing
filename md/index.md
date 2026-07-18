@@ -19,7 +19,7 @@ lang: es
 </div>
 </div>
 
-Estudiante avanzado de Ingeniería en Sistemas de Información y desarrollador full-stack en AYSAM. Me gusta tanto programar como administrar la infraestructura donde corre lo que desarrollé, construir sistemas, mantenerlos, y entender cómo se rompen. Combino desarrollo de software con formación en ciberseguridad ofensiva.
+Estudiante avanzado de Ingeniería en Sistemas de Información y desarrollador full-stack en AYSAM. Soy un apasionado del desarrollo de software y de la administración de ese software. Disfruto administrar la infraestructura donde corre el software que construí, intentando exprimir y aprovechar los recursos que dispongo para la mejor optimización y eficiencia.
 
 <div class="tag-group">
   <p class="tag-group-label">Backend</p>
@@ -70,7 +70,7 @@ Estudiante avanzado de Ingeniería en Sistemas de Información y desarrollador f
 
 ## Destacado
 
-Este mismo sitio se está hosteando 100% en mi **homeserver personal**. Actualmente me encuentro trabajando con infraestructura self-hosted, contenedores y privacidad aplicada a un uso diario real, corriendo 24/7 detrás de [Tailscale](https://tailscale.com).
+Actualmente me encuentro trabajando con infraestructura self-hosted, contenedores y privacidad aplicada a un uso diario real. Este mismo sitio se está hosteando 100% en mi homerserver personal y se encuentra corriendo 24/7 con [Tailscale](https://tailscale.com) usando Tailscale Serve y Tailscale Funnel como proxy inverso.
 
 <div class="uptime-box compact">
   <p class="uptime-label" id="uptime-label">El último reinicio fue el …</p>

@@ -145,16 +145,15 @@ graph TD
 
 ### Notas de arquitectura
 
-- **Acceso único:** el servidor no es accesible por red local. Todo el tráfico pasa exclusivamente por Tailscale; el único puerto permitido de entrada es 22/SSH por red LAN. Los puertos de cada servicio se redirigen internamente para el proxy de Tailscale.
-- **Tailscale:** además de dar acceso privado, actúa como proxy único hacia todos los servicios (misma URL vía MagicDNS, cambiando de puerto según el servicio) y provee SSL en todos los casos.
-- **Portfolio:** es la única excepción siempre disponible y expuesta a internet, mediante Tailscale Funnel sobre una ruta específica. Es HTML/CSS/JS estático, sin backend ni contenedor propio.
-- **Cockpit:** corre directamente en el host, accesible únicamente vía Tailscale.
-- **Webhook:** API instanciada para la habilitación dinámica de Tailscale Funnel. Permite instanciar en Homepage botones con scripts en bash para habilitar la salida externa de diversos servicios de forma dinámica.
-- **Podman:** motor rootless que orquesta todos los pods de servicios. No incluye la landing ni Cockpit.
+- **Acceso único:**. Todo el tráfico pasa exclusivamente por Tailscale; el único puerto permitido de entrada es 22/SSH por red LAN. Los puertos de cada servicio se redirigen internamente para el proxy de Tailscale.
+- **Tailscale:** Actúa como proxy único hacia todos los servicios y provee SSL en todos los casos.
+- **Esta web:** Única excepción siempre disponible y expuesta a internet, mediante Tailscale Funnel sobre una ruta específica. Es HTML/CSS/JS estático, sin backend ni contenedor propio.
+- **Cockpit:** Corre directamente en el host.
+- **Webhook:** API que corre en el host. Su función es la habilitación dinámica de Tailscale Funnel. Permite instanciar en Homepage botones con scripts en bash para habilitar la salida de servicios de forma dinámica.
+- **Podman:** Motor rootless que orquesta todos los pods de servicios.
 - **Bases de datos:** Immich y Miniflux poseen sus contenedores de base de datos. Se omiten en el diagrama.
-- **Discos:** el SSD de 120GB es exclusivo del sistema operativo. El SSD de 480GB concentra todos los volúmenes de los contenedores. Los dos HDD de son destino de backups diario y semanal respectivamente.
+- **Discos:** Un SSD de 120GB el cual es exclusivo del sistema operativo. Un SSD concentra toda la información como disco de datos. Los dos HDD de son destino de backups diario y semanal respectivamente.
 - **DNS:** Pi-hole filtra consultas y las reenvía a Unbound, que sale a los servidores de Mullvad exclusivamente vía DoT.
-- **Uso real:** Radicale guarda calendarios y contactos. Syncthing sincroniza notas de Obsidian, respaldo de WhatsApp, códigos 2FA encriptados y biblioteca de Calibre. Homepage se usa solo como launcher de apps (sin integración de API keys con Podman). Miniflux centraliza RSS de mis intereses personales.
 
 ## Stack técnico
 
@@ -189,7 +188,7 @@ graph TD
 
 **Origenes del proyecto**
 
-Mi servidor personal inició por medio de una instancia de una Raspberry Pi 4b. Esto despertó mi entusiasmo en la administración de servidores y me ha permitido ir aprendiendo en mi día a día. Actualmente esa Raspberry Pi se encuentra vinculada al nodo principal permitiendo redundancia para los servicios primordiales como Vaultwarden, Pihole o Unbound. Así mantengo una alta disponibilidad ante cualquier inconveniente que pueda llegar a ocurrir
+Mi servidor personal inició por medio de una instancia de una Raspberry Pi 4b. Fue el motor que incentivó tanto este proyecto. En el día a día me sirve tanto para aprender como para proveer los servicios sin pagos de suscripción. Actualmente esa Raspberry Pi se encuentra vinculada al nodo principal permitiendo redundancia para los servicios primordiales como Vaultwarden, Pihole o Unbound. Así mantengo una alta disponibilidad ante cualquier inconveniente que pueda llegar a ocurrir
 
 **Self-hosted vs. cloud**
 
@@ -202,16 +201,6 @@ Cockpit ya sirve su propia interfaz por HTTPS con certificado autofirmado. Al ex
 Sumado a eso, Cockpit valida el header `Origin` de cada request como protección CSRF. Al llegar las requests desde el dominio de Tailscale en vez del hostname local que Cockpit esperaba, las rechazaba silenciosamente.
 
 La solución fue configurar Cockpit para escuchar en HTTP plano localmente y agregar el dominio de Tailscale a los orígenes permitidos en la configuración de Cockpit, para que dejara de tratar esas requests como intentos de CSRF.
-
-## Referencias
-
-Documentación y fuentes técnicas usadas para diseñar esta infraestructura:
-
-- [Tailscale Funnel](https://tailscale.com/kb/1223/funnel) y [Tailscale Serve](https://tailscale.com/kb/1242/tailscale-serve): exposición pública controlada sobre WireGuard.
-- [Podman rootless](https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-containers): contenedores sin daemon root, base de la superficie de ataque reducida.
-- [systemd Rootless containers with Podman](https://docs.podman.io/en/latest/markdown/podman-generate-systemd.1.html): unidades de usuario para cada pod.
-- [Cockpit Project](https://cockpit-project.org/): administración web del sistema y contenedores.
-- [Pandoc](https://pandoc.org/): generador de esta misma landing a partir de Markdown.
 
 ## Código abierto
 

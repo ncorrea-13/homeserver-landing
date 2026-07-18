@@ -15,47 +15,43 @@ lang: es
 
 <div class="hero">
 <div>
-<p>Estudiante avanzado de Ingeniería en Sistemas de Información en la Universidad Tecnológica Nacional, Facultad Regional Mendoza. Actualmente tengo 37 materias aprobadas de las 41 de la carrera. Soy desarrollador full-stack en AYSAM. Me apasiona el desarrollo de software, y mi experiencia en Linux avanzado despertó interés en la infraestructura, la ciberseguridad y explotación de vulnerabilidades.</p>
-<p>Este homeserver es mi laboratorio personal: infraestructura self-hosted, contenedores, redes y privacidad aplicada a un uso diario real.  Además me encuentro actualmente en formación como Red Team.</p>
+<p>Soy un estudiante avanzado de Ingeniería en Sistemas de Información en la Universidad Tecnológica Nacional, Facultad Regional Mendoza. Actualmente tengo 37/41 materias aprobadas. Soy desarrollador full-stack en AYSAM. Me apasiona el desarrollo de software, y mi experiencia en Linux avanzado despertó interés en la infraestructura, la ciberseguridad y explotación de vulnerabilidades.</p>
+<p>Además, mantengo mi homeserver. donde mantengo infraestructura servicios, contenedores, redes y privacidad aplicada a un uso diario real.</p>
 </div>
 <img class="hero-photo large" src="foto.jpg" alt="Nicolás Correa" />
 </div>
 
 ## Experiencia
 
-- **Desarrollador de Software Full-Stack** - Aguas y Saneamiento Mendoza (AYSAM), Dic 2025 - Presente
-- **Pasante de Sistemas** - Caja Forense de Mendoza, Sep 2025 - Nov 2025
-- **Becario de desarrollo e investigación** - Laboratorio de Auditoría y Seguridad TIC, UTN (Beca BIS), Mar 2025 - Nov 2025
-- **Full Stack Developer Jr** - Freelance, Dic 2024 – Feb 2025
-- **Back End Developer Jr** - Qaizen, Feb 2023 – Jun 2023
+- **Desarrollador de Software Full-Stack** (Aguas y Saneamiento Mendoza), Dic 2025 - Presente
+- **Pasante de Sistemas** (Caja Forense de Mendoza), Sep 2025 - Nov 2025
+- **Becario de desarrollo e investigación** (Laboratorio AuSegTIC, UTN), Mar 2025 - Nov 2025 (Beca BIS)
+- **Full Stack Developer Jr** (Freelance), Dic 2024 – Feb 2025
+- **Back End Developer Jr** (Qaizen), Feb 2023 – Jun 2023
 
 Detalle de cada rol en el CV descargable más abajo.
 
 ## Educación
 
-- **Ingeniería en Sistemas de Información** - UTN Regional Mendoza (2022 - en curso)
-- **Full-Stack Java Web Developer** - Egg Education, 500hs (Nov 2021 – Oct 2022)
-- **Inglés B2** - Instituto Cultural de Mendoza (2018 – 2024)
+- **Ingeniería en Sistemas de Información** (UTN Facultad Regional Mendoza), 2022 - Presente
+- **Full-Stack Java Web Developer** (Egg Education), Nov 2021 – Oct 2022 (Beca DAD, 500hs)
+- **Inglés B2** (Instituto Cultural de Mendoza), 2018 – 2024
 
 ## Habilidades blandas
 
 Trabajo en equipo, comunicación efectiva, responsabilidad y adaptabilidad; sobre todo al pasar entre roles de desarrollo, infraestructura y de seguridad ofensiva, donde el contexto y las prioridades cambian rápido.
 
-## Enfoque actual
-
-Profundizando en explotación web y de redes como parte de mi formación, en paralelo a mi rol full-stack en AYSAM. Me encuentro escalando este homeserver como laboratorio personal.
-
-## Plataformas de práctica
-
-HackTheBox, TryHackMe y PortSwigger Web Security Academy para ejercitar explotación de vulnerabilidades en entornos controlados.
-
-## Filosofía de trabajo
-
-Me interesa tanto construir sistemas como buscar fallas y vulnerabilidades. Esa doble mirada influye directamente en cómo diseño: priorizo minimizar superficie de ataque y aislar por servicio antes que agregar funcionalidad por agregar. En el fondo el sysadmin es la parte que más disfruto: armar la arquitectura, sostenerla, entender por qué algo no levanta, más allá de que también me sirva como excusa para aprender seguridad. Ese mismo gusto es el que me lleva a preferir software libre. Es la herramienta que me da control real sobre mis propios datos.
-
 ## Intereses
 
-Arquitectura de sistemas y sistemas operativos, sobre todo por CLI/TUI. Self-hosting y privacidad digital, como el motivo por el que este homeserver sigue creciendo. Seguridad ofensiva, e integrante del Club de Hacking Ético (UTN).
+Arquitectura de sistemas y sistemas operativos, sobre todo por CLI/TUI. Self-hosting y privacidad digital, como el motivo por el que este homeserver sigue creciendo. Seguridad ofensiva.
+
+## Cómo encaro el software
+
+Le doy tanta importancia a cómo está construido el código como a que funcione. Mi principal enfoque a la hora de construir software es mantener la filosofía KISS. Mantener el software lo más chico posible así se puede desacoplar de forma sencilla y reutilizar en diferentes proyecto; a menos que la situación amerite lo contrario.
+
+## Entorno de trabajo
+
+Mi día a día pasa por la terminal: Neovim como editor principal, Zellij como multiplexor y Yazi para manejar archivos, todo dentro de WezTerm. La mayoría de mis herramientas propias de uso personal las utilizo por medio de interfaces CLI o TUI, así puedo tenerlas disponibles en cualquier máquina. Considero que el software que utilizo para crear software debe ser lo más ligero y completo posible así todos los recursos de mi hardware se enfocan en lo que estoy construyendo.
 
 ## CV
 
